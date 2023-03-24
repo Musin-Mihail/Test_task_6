@@ -2,25 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletControl
+public class CoinControl
 {
     private float _value;
-    private readonly Transform _bullet;
+    private readonly Transform _coin;
     public bool Busy;
 
-    public BulletControl(Transform bullet)
+    public CoinControl(Transform coin)
     {
-        _bullet = bullet;
+        _coin = coin;
         Busy = false;
     }
 
-    public IEnumerator Move(Transform start, Transform end, float speed)
+    public IEnumerator Move(Vector3 start)
     {
         Busy = true;
-        var startPosition = start.position;
-        var endPosition = end.position;
-        _bullet.position = startPosition;
-        _bullet.gameObject.SetActive(true);
+        _coin.gameObject.SetActive(true);
+        var startPosition = start;
+        var endPosition = new Vector3(-1.55f, 12, 0);
         var center = Vector3.Lerp(startPosition, endPosition, 0.5f) + new Vector3(0, 5, 0);
         var line = new List<Vector3>
         {
@@ -32,11 +31,12 @@ public class BulletControl
         while (_value <= 1)
         {
             yield return new WaitForSeconds(0.01f);
-            _value += 0.01f * speed;
+            _value += 0.01f;
             Lerp(line);
         }
 
-        _bullet.gameObject.SetActive(false);
+        _coin.gameObject.SetActive(false);
+        EventManager.EndCoin?.Invoke();
         Busy = false;
     }
 
@@ -48,6 +48,6 @@ public class BulletControl
             list.Add(Vector3.Lerp(line[i], line[i + 1], _value));
         }
 
-        _bullet.position = Vector3.Lerp(list[0], list[1], _value);
+        _coin.position = Vector3.Lerp(list[0], list[1], _value);
     }
 }

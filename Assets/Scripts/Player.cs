@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public Transform bulletPrefab;
     private readonly List<BulletControl> _bulletControls = new();
     public Transform enemy;
+    public Transform targetCoins;
     private Ability _ability;
 
     private void Awake()

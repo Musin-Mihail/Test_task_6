@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ public class Game : MonoBehaviour
     private UIControl _uiControl;
     private Coins _coins;
     private Ability _ability;
+    private List<CoinControl> _coinControls;
+    public Transform coinPrefab;
+    public Transform targetCoins;
     public Transform player;
     public TMP_Text allCoins;
     public TMP_Text powerLevel;
@@ -25,6 +29,9 @@ public class Game : MonoBehaviour
         _coins = new Coins(0);
         _ability = player.GetComponent<Player>().GetAbility();
         _shop = new Shop(_uiControl, _coins, _ability);
+        EventManager.DeadEnemy += CreateCoin;
+        EventManager.EndCoin += AddCoin;
+        _coinControls = new List<CoinControl>();
     }
 
     private void Update()
@@ -32,13 +39,50 @@ public class Game : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _coins.AddCoins(500);
-            _uiControl.ChangeCoins(_coins.GetCoins());
         }
+    }
+
+    private void AddCoin()
+    {
+        _coins.AddCoins(50);
+        _uiControl.ChangeCoins(_coins.GetCoins());
+    }
+
+    private void CreateCoin(Vector3 enemy)
+    {
+        StartCoroutine(GetCoinControl().Move(enemy));
+    }
+
+    private CoinControl GetCoinControl()
+    {
+        foreach (var coinControl in _coinControls)
+        {
+            if (!coinControl.Busy)
+            {
+                return coinControl;
+            }
+        }
+
+        return CreateCoinControl();
+    }
+
+    private CoinControl CreateCoinControl()
+    {
+        var coinControl = new CoinControl(CreateCoin());
+        _coinControls.Add(coinControl);
+        return coinControl;
+    }
+
+    private Transform CreateCoin()
+    {
+        var newCoin = Instantiate(coinPrefab).gameObject;
+        return newCoin.transform;
     }
 
     public void BuyPower()
     {
         _shop.BuyPower();
+        _uiControl.ChangeCoins(_coins.GetCoins());
     }
 
     public void BuySpeed()
