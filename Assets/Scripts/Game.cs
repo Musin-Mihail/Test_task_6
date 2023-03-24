@@ -10,7 +10,6 @@ public class Game : MonoBehaviour
     private Ability _ability;
     private List<CoinControl> _coinControls;
     public Transform coinPrefab;
-    public Transform targetCoins;
     public Transform player;
     public TMP_Text allCoins;
     public TMP_Text powerLevel;
@@ -48,6 +47,7 @@ public class Game : MonoBehaviour
         _coins.AddCoins(50);
         _uiControl.ChangeCoins(_coins.GetCoins());
     }
+
     private int GetDamage()
     {
         return _ability.GetPowerValue();

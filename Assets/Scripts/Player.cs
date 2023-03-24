@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -7,8 +8,8 @@ public class Player : MonoBehaviour
     private float _value;
     public Transform bulletPrefab;
     private readonly List<BulletControl> _bulletControls = new();
-    public Transform enemy;
-    public Transform targetCoins;
+    private Transform _enemyTarget;
+    public List<Transform> enemies;
     private Ability _ability;
 
     private void Awake()
@@ -30,14 +31,31 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(2.0f / _ability.GetSpeedValue());
-            Shot();
+            if (_enemyTarget && _enemyTarget.gameObject.activeSelf)
+            {
+                Shot();
+                yield return new WaitForSeconds(2.0f / _ability.GetSpeedValue());
+            }
+            else
+            {
+                enemies = enemies.OrderBy(enemy => Vector3.Distance(enemy.position, transform.position)).ToList();
+                foreach (var enemy in enemies)
+                {
+                    if (enemy.gameObject.activeSelf)
+                    {
+                        _enemyTarget = enemy;
+                        break;
+                    }
+                }
+
+                yield return new WaitForSeconds(0.1f);
+            }
         }
     }
 
     private void Shot()
     {
-        StartCoroutine(GetBulletControl().Move(transform, enemy, _ability.GetSpeedValue()));
+        StartCoroutine(GetBulletControl().Move(transform, _enemyTarget, _ability.GetSpeedValue()));
     }
 
     private BulletControl GetBulletControl()

@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 
     public Enemy()
     {
-        _health = 50;
+        _health = 20;
     }
 
     void CheckHealth(int damage)
