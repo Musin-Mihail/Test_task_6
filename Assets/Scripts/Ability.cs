@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Ability
 {
     private int _powerLevel;
@@ -8,7 +6,6 @@ public class Ability
     private int _power;
     private float _speed;
     private int _health;
-
 
     public Ability()
     {

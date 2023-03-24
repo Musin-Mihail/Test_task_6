@@ -16,7 +16,7 @@ public class Game : MonoBehaviour
     public TMP_Text powerCost;
     public TMP_Text speedCost;
     public TMP_Text healthCost;
-    
+
     private void Start()
     {
         _uiControl = new UIControl(allCoins, powerLevel, speedLevel, healthLevel, powerValue, speedValue, healthValue, powerCost, speedCost, healthCost);
@@ -31,17 +31,20 @@ public class Game : MonoBehaviour
             _coins.AddCoins(5);
             _uiControl.ChangeCoins(_coins.GetCoins());
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            _shop.BuyPower();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            _shop.BuySpeed();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            _shop.BuyHealth();
-        }
+    }
+
+    public void BuyPower()
+    {
+        _shop.BuyPower();
+    }
+
+    public void BuySpeed()
+    {
+        _shop.BuySpeed();
+    }
+
+    public void BuyHealth()
+    {
+        _shop.BuyHealth();
     }
 }

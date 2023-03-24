@@ -6,6 +6,7 @@ public class Shop
     private int _powerCost;
     private int _speedCons;
     private int _healthCost;
+
     public Shop(UIControl uiControl, Coins coins)
     {
         _powerCost = 11;
@@ -27,7 +28,7 @@ public class Shop
             _uiControl.ChangeCoins(_coins.GetCoins());
         }
     }
-    
+
     public void BuySpeed()
     {
         if (_coins.RemovedCoins(_speedCons))
@@ -38,7 +39,7 @@ public class Shop
             _uiControl.ChangeCoins(_coins.GetCoins());
         }
     }
-    
+
     public void BuyHealth()
     {
         if (_coins.RemovedCoins(_healthCost))
