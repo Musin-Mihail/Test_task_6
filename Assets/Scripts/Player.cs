@@ -16,12 +16,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Shot()
+    private void Shot()
     {
         StartCoroutine(GetBulletControl().Move(transform, enemy));
     }
 
-    BulletControl GetBulletControl()
+    private BulletControl GetBulletControl()
     {
         foreach (var bulletControl in _bulletControls)
         {
@@ -34,14 +34,14 @@ public class Player : MonoBehaviour
         return CreateBulletControl();
     }
 
-    BulletControl CreateBulletControl()
+    private BulletControl CreateBulletControl()
     {
         var bulletControl = new BulletControl(CreateBullet());
         _bulletControls.Add(bulletControl);
         return bulletControl;
     }
 
-    Transform CreateBullet()
+    private Transform CreateBullet()
     {
         var newBullet = Instantiate(bulletPrefab).gameObject;
         return newBullet.transform;

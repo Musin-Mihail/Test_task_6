@@ -24,7 +24,7 @@ public class Game : MonoBehaviour
         _shop = new Shop(_uiControl, _coins);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {

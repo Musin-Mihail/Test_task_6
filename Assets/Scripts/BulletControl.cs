@@ -20,10 +20,12 @@ public class BulletControl
         var startPosition = start.position;
         var endPosition = end.position;
         var center = Vector3.Lerp(startPosition, endPosition, 0.5f) + new Vector3(0, 5, 0);
-        var line = new List<Vector3>();
-        line.Add(startPosition);
-        line.Add(center);
-        line.Add(endPosition);
+        var line = new List<Vector3>
+        {
+            startPosition,
+            center,
+            endPosition
+        };
         _value = 0;
         while (_value <= 1)
         {
@@ -35,10 +37,10 @@ public class BulletControl
         Busy = false;
     }
 
-    void Lerp(List<Vector3> line)
+    private void Lerp(IReadOnlyList<Vector3> line)
     {
-        List<Vector3> list = new List<Vector3>();
-        for (int i = 0; i < line.Count - 1; i++)
+        var list = new List<Vector3>();
+        for (var i = 0; i < line.Count - 1; i++)
         {
             list.Add(Vector3.Lerp(line[i], line[i + 1], _value));
         }

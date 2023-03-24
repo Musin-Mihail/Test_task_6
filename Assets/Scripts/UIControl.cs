@@ -2,16 +2,16 @@ using TMPro;
 
 public class UIControl
 {
-    private TMP_Text _allCoins;
-    private TMP_Text _powerLevel;
-    private TMP_Text _speedLevel;
-    private TMP_Text _healthLevel;
-    private TMP_Text _powerValue;
-    private TMP_Text _speedValue;
-    private TMP_Text _healthValue;
-    private TMP_Text _powerCost;
-    private TMP_Text _speedCost;
-    private TMP_Text _healthCost;
+    private readonly TMP_Text _allCoins;
+    private readonly TMP_Text _powerLevel;
+    private readonly TMP_Text _speedLevel;
+    private readonly TMP_Text _healthLevel;
+    private readonly TMP_Text _powerValue;
+    private readonly TMP_Text _speedValue;
+    private readonly TMP_Text _healthValue;
+    private readonly TMP_Text _powerCost;
+    private readonly TMP_Text _speedCost;
+    private readonly TMP_Text _healthCost;
 
     public UIControl(TMP_Text allCoins, TMP_Text powerLevel, TMP_Text speedLevel, TMP_Text healthLevel, TMP_Text powerValue, TMP_Text speedValue, TMP_Text healthValue, TMP_Text powerCost, TMP_Text speedCost, TMP_Text healthCost)
     {

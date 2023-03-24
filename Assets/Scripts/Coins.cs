@@ -14,13 +14,9 @@ public class Coins
 
     public bool RemovedCoins(int coins)
     {
-        if (_coins >= coins)
-        {
-            _coins -= coins;
-            return true;
-        }
-
-        return false;
+        if (_coins < coins) return false;
+        _coins -= coins;
+        return true;
     }
 
     public int GetCoins()

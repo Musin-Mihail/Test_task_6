@@ -13,7 +13,6 @@ public class Shop
         _speedCons = 23;
         _healthCost = 7;
         _uiControl = uiControl;
-        _coins = new(1000);
         _ability = new();
         _coins = coins;
     }
