@@ -7,13 +7,13 @@ public class Shop
     private int _speedCons;
     private int _healthCost;
 
-    public Shop(UIControl uiControl, Coins coins)
+    public Shop(UIControl uiControl, Coins coins, Ability ability)
     {
         _powerCost = 11;
         _speedCons = 23;
         _healthCost = 7;
         _uiControl = uiControl;
-        _ability = new();
+        _ability = ability;
         _coins = coins;
     }
 

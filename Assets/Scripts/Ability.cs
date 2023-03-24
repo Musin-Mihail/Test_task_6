@@ -26,7 +26,7 @@ public class Ability
     public void AddSpeed()
     {
         _speedLevel++;
-        _speed = 1.0f + _speedLevel * 0.1f;
+        _speed = 1.0f + _speedLevel * 0.05f;
     }
 
     public void AddHealth()

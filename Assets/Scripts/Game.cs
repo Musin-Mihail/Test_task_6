@@ -6,6 +6,8 @@ public class Game : MonoBehaviour
     private Shop _shop;
     private UIControl _uiControl;
     private Coins _coins;
+    private Ability _ability;
+    public Transform player;
     public TMP_Text allCoins;
     public TMP_Text powerLevel;
     public TMP_Text speedLevel;
@@ -21,7 +23,8 @@ public class Game : MonoBehaviour
     {
         _uiControl = new UIControl(allCoins, powerLevel, speedLevel, healthLevel, powerValue, speedValue, healthValue, powerCost, speedCost, healthCost);
         _coins = new Coins(0);
-        _shop = new Shop(_uiControl, _coins);
+        _ability = player.GetComponent<Player>().GetAbility();
+        _shop = new Shop(_uiControl, _coins, _ability);
     }
 
     private void Update()

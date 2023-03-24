@@ -14,9 +14,10 @@ public class BulletControl
         Busy = false;
     }
 
-    public IEnumerator Move(Transform start, Transform end)
+    public IEnumerator Move(Transform start, Transform end, float speed)
     {
         Busy = true;
+        _bullet.gameObject.SetActive(true);
         var startPosition = start.position;
         var endPosition = end.position;
         var center = Vector3.Lerp(startPosition, endPosition, 0.5f) + new Vector3(0, 5, 0);
@@ -30,10 +31,11 @@ public class BulletControl
         while (_value <= 1)
         {
             yield return new WaitForSeconds(0.01f);
-            _value += 0.01f;
+            _value += 0.01f * speed;
             Lerp(line);
         }
 
+        _bullet.gameObject.SetActive(false);
         Busy = false;
     }
 
