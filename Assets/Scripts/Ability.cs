@@ -1,31 +1,70 @@
+using UnityEngine;
+
 public class Ability
 {
+    private int _powerLevel;
+    private int _speedLevel;
+    private int _healthLevel;
     private int _power;
-    private int _speed;
+    private float _speed;
     private int _health;
+
 
     public Ability()
     {
-        _power = 1;
-        _speed = 1;
-        _health = 1;
+        _powerLevel = 1;
+        _speedLevel = 1;
+        _healthLevel = 1;
+        _power = 10;
+        _speed = 1.0f;
+        _health = 110;
     }
 
-    public int AddPower()
+    public void AddPower()
     {
-        _power++;
+        _powerLevel++;
+        _power = 10 + _powerLevel * 2;
+    }
+
+    public void AddSpeed()
+    {
+        _speedLevel++;
+        _speed = 1.0f + _speedLevel * 0.1f;
+    }
+
+    public void AddHealth()
+    {
+        _healthLevel++;
+        _health = 110 + _healthLevel * 10;
+    }
+
+    public int GetPowerLevel()
+    {
+        return _powerLevel;
+    }
+
+    public int GetSpeedLevel()
+    {
+        return _speedLevel;
+    }
+
+    public int GetHealthLevel()
+    {
+        return _healthLevel;
+    }
+
+    public int GetPowerValue()
+    {
         return _power;
     }
 
-    public int AddSpeed()
+    public float GetSpeedValue()
     {
-        _speed++;
         return _speed;
     }
 
-    public int AddHealth()
+    public int GetHealthValue()
     {
-        _health++;
         return _health;
     }
 }

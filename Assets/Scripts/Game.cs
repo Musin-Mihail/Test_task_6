@@ -6,14 +6,20 @@ public class Game : MonoBehaviour
     private Shop _shop;
     private UIControl _uiControl;
     private Coins _coins;
-    public TMP_Text coins;
-    public TMP_Text power;
-    public TMP_Text speed;
-    public TMP_Text health;
-
+    public TMP_Text allCoins;
+    public TMP_Text powerLevel;
+    public TMP_Text speedLevel;
+    public TMP_Text healthLevel;
+    public TMP_Text powerValue;
+    public TMP_Text speedValue;
+    public TMP_Text healthValue;
+    public TMP_Text powerCost;
+    public TMP_Text speedCost;
+    public TMP_Text healthCost;
+    
     private void Start()
     {
-        _uiControl = new UIControl(coins, power, speed, health);
+        _uiControl = new UIControl(allCoins, powerLevel, speedLevel, healthLevel, powerValue, speedValue, healthValue, powerCost, speedCost, healthCost);
         _coins = new Coins(0);
         _shop = new Shop(_uiControl, _coins);
     }
