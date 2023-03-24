@@ -21,4 +21,13 @@ public class Enemy : MonoBehaviour
             EventManager.DeadEnemy?.Invoke(transform.position);
         }
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 6)
+        {
+            var damage = EventManager.Hit?.Invoke();
+            if (damage != null) CheckHealth(damage.Value);
+        }
+    }
 }

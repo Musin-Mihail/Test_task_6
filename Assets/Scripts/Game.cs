@@ -31,6 +31,7 @@ public class Game : MonoBehaviour
         _shop = new Shop(_uiControl, _coins, _ability);
         EventManager.DeadEnemy += CreateCoin;
         EventManager.EndCoin += AddCoin;
+        EventManager.Hit += GetDamage;
         _coinControls = new List<CoinControl>();
     }
 
@@ -46,6 +47,10 @@ public class Game : MonoBehaviour
     {
         _coins.AddCoins(50);
         _uiControl.ChangeCoins(_coins.GetCoins());
+    }
+    private int GetDamage()
+    {
+        return _ability.GetPowerValue();
     }
 
     private void CreateCoin(Vector3 enemy)

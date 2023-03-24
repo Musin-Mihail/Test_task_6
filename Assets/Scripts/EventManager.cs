@@ -5,4 +5,5 @@ public static class EventManager
 {
     public static Action<Vector3> DeadEnemy;
     public static Action EndCoin;
+    public static Func<int> Hit;
 }
