@@ -28,7 +28,7 @@ public class Game : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _coins.AddCoins(5);
+            _coins.AddCoins(500);
             _uiControl.ChangeCoins(_coins.GetCoins());
         }
     }
