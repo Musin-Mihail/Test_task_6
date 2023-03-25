@@ -18,21 +18,21 @@ public class BulletControl
     {
         Busy = true;
         var startPosition = start.position;
-        var endPosition = end.position;
         _bullet.position = startPosition;
         _bullet.gameObject.SetActive(true);
-        var center = Vector3.Lerp(startPosition, endPosition, 0.5f) + new Vector3(0, 5, 0);
-        var line = new List<Vector3>
-        {
-            startPosition,
-            center,
-            endPosition
-        };
         _value = 0;
         while (_value <= 1)
         {
             yield return new WaitForSeconds(0.01f);
             _value += 0.01f * speed;
+            var endPosition = end.position;
+            var center = Vector3.Lerp(startPosition, endPosition, 0.5f) + new Vector3(0, 5, 0);
+            var line = new List<Vector3>
+            {
+                startPosition,
+                center,
+                endPosition
+            };
             Lerp(line);
         }
 

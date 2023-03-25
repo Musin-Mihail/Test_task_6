@@ -9,22 +9,24 @@ public class Player : MonoBehaviour
     public Transform bulletPrefab;
     private readonly List<BulletControl> _bulletControls = new();
     private Transform _enemyTarget;
-    public List<Transform> enemies;
+    private List<Transform> _enemies;
     private Ability _ability;
 
     private void Awake()
     {
         _ability = new Ability();
+        _enemies = new List<Transform>();
+        EventManager.AddEnemies += AddEnemies;
     }
 
     private void Start()
     {
         StartCoroutine(Move());
-        var findObjectsOfType = FindObjectsOfType<Enemy>();
-        foreach (var enemy in findObjectsOfType)
-        {
-            enemies.Add(enemy.gameObject.transform);
-        }
+    }
+
+    private void AddEnemies(List<Transform> enemies)
+    {
+        _enemies = enemies;
     }
 
     public Ability GetAbility()
@@ -40,13 +42,14 @@ public class Player : MonoBehaviour
             {
                 Shot();
                 yield return new WaitForSeconds(2.0f / _ability.GetSpeedValue());
+                _enemyTarget = null;
             }
             else
             {
-                enemies = enemies.OrderBy(enemy => Vector3.Distance(enemy.position, transform.position)).ToList();
-                foreach (var enemy in enemies)
+                _enemies = _enemies.OrderBy(enemy => Vector3.Distance(enemy.position, transform.position)).ToList();
+                foreach (var enemy in _enemies)
                 {
-                    if (enemy.gameObject.activeSelf && Vector3.Distance(transform.position, enemy.gameObject.transform.position) < 20)
+                    if (enemy.gameObject.activeSelf && Vector3.Distance(transform.position, enemy.gameObject.transform.position) < 15)
                     {
                         _enemyTarget = enemy;
                         break;
