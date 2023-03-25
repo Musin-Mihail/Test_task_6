@@ -34,6 +34,11 @@ public class BulletControl
                 endPosition
             };
             Lerp(line);
+            if (!end.gameObject.activeSelf)
+            {
+                _bullet.gameObject.SetActive(false);
+                break;
+            }
         }
 
         _bullet.gameObject.SetActive(false);

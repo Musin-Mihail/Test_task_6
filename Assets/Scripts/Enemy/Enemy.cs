@@ -38,7 +38,11 @@ public class Enemy : MonoBehaviour
             }
 
             yield return new WaitForSeconds(0.01f);
-            startWidth -= 0.06f;
+            startWidth -= 0.1f;
+            if ( _health > 0 && startWidth <= 0.1f)
+            {
+                startWidth = 0.1f;
+            }
             healthBar.sizeDelta = new Vector2(startWidth, 0.3f);
         }
 
@@ -63,6 +67,17 @@ public class Enemy : MonoBehaviour
             convas.transform.LookAt(Camera.main.transform.position);
         }
     }
+    private IEnumerator MoveDamage()
+    {
+        while (gameObject.activeSelf)
+        {
+            yield return new WaitForSeconds(0.01f);
+            var playerPosition = _player.position;
+            transform.position = Vector3.MoveTowards(transform.position, playerPosition, 0.01f);
+            transform.LookAt(playerPosition);
+            convas.transform.LookAt(Camera.main.transform.position);
+        }
+    }
 
 
     void OnTriggerEnter(Collider other)
@@ -70,7 +85,7 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.layer == 6)
         {
             other.gameObject.SetActive(false);
-            var damage = EventManager.Hit?.Invoke();
+            var damage = EventManager.Hit?.Invoke(transform.position);
             if (damage != null) StartCoroutine(Hit(damage.Value));
         }
     }

@@ -17,13 +17,13 @@ public class CoinControl
     public IEnumerator Move(Vector3 start)
     {
         Busy = true;
+        _coin.position = start;
         _coin.gameObject.SetActive(true);
-        var startPosition = start;
-        var endPosition = new Vector3(-1.55f, 12, 0);
-        var center = Vector3.Lerp(startPosition, endPosition, 0.5f) + new Vector3(0, 5, 0);
+        var endPosition = new Vector3(-2.6f, 11.3f, 0);
+        var center = Vector3.Lerp(start, endPosition, 0.5f) + new Vector3(0, 5, 0);
         var line = new List<Vector3>
         {
-            startPosition,
+            start,
             center,
             endPosition
         };

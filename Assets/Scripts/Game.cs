@@ -11,7 +11,9 @@ public class Game : MonoBehaviour
     private SpawnEnemy _spawner;
     public Transform enemy;
     private List<CoinControl> _coinControls;
+    private List<DamageControl> _damageControls;
     public Transform coinPrefab;
+    public Transform damagePrefab;
     public Transform player;
     public TMP_Text allCoins;
     public TMP_Text powerLevel;
@@ -26,6 +28,7 @@ public class Game : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
         _uiControl = new UIControl(allCoins, powerLevel, speedLevel, healthLevel, powerValue, speedValue, healthValue, powerCost, speedCost, healthCost);
         _coins = new Coins(0);
         _ability = player.GetComponent<Player>().GetAbility();
@@ -47,6 +50,7 @@ public class Game : MonoBehaviour
         EventManager.Hit += GetDamage;
         EventManager.SpawnEnemy += Spawn;
         _coinControls = new List<CoinControl>();
+        _damageControls = new List<DamageControl>();
     }
 
     private void Spawn(Transform newEnemy, Vector3 vector)
@@ -69,14 +73,42 @@ public class Game : MonoBehaviour
         _uiControl.ChangeCoins(_coins.GetCoins());
     }
 
-    private int GetDamage()
+    private int GetDamage(Vector3 enemyVector)
     {
-        return _ability.GetPowerValue();
+        var damage = _ability.GetPowerValue();
+        StartCoroutine(GetDamageControl().Move(enemyVector, damage));
+        return damage;
     }
 
-    private void CreateCoin(Vector3 enemy)
+    private void CreateCoin(Vector3 enemyVector)
     {
-        StartCoroutine(GetCoinControl().Move(enemy));
+        StartCoroutine(GetCoinControl().Move(enemyVector));
+    }
+
+    private DamageControl GetDamageControl()
+    {
+        foreach (var damageControl in _damageControls)
+        {
+            if (!damageControl.Busy)
+            {
+                return damageControl;
+            }
+        }
+
+        return CreateDamageControl();
+    }
+
+    private DamageControl CreateDamageControl()
+    {
+        var damageControl = new DamageControl(CreateDamage());
+        _damageControls.Add(damageControl);
+        return damageControl;
+    }
+
+    private Transform CreateDamage()
+    {
+        var newDamage = Instantiate(damagePrefab).gameObject;
+        return newDamage.transform;
     }
 
     private CoinControl GetCoinControl()
