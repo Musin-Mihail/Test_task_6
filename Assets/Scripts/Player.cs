@@ -20,6 +20,11 @@ public class Player : MonoBehaviour
     private void Start()
     {
         StartCoroutine(Move());
+        var findObjectsOfType = FindObjectsOfType<Enemy>();
+        foreach (var enemy in findObjectsOfType)
+        {
+            enemies.Add(enemy.gameObject.transform);
+        }
     }
 
     public Ability GetAbility()
@@ -41,7 +46,7 @@ public class Player : MonoBehaviour
                 enemies = enemies.OrderBy(enemy => Vector3.Distance(enemy.position, transform.position)).ToList();
                 foreach (var enemy in enemies)
                 {
-                    if (enemy.gameObject.activeSelf)
+                    if (enemy.gameObject.activeSelf && Vector3.Distance(transform.position, enemy.gameObject.transform.position) < 20)
                     {
                         _enemyTarget = enemy;
                         break;

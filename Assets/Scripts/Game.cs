@@ -22,6 +22,9 @@ public class Game : MonoBehaviour
     public TMP_Text speedCost;
     public TMP_Text healthCost;
 
+    // x: 5 - 10
+    // y: 0.6
+    // z: 5 - -5
     private void Start()
     {
         _uiControl = new UIControl(allCoins, powerLevel, speedLevel, healthLevel, powerValue, speedValue, healthValue, powerCost, speedCost, healthCost);
